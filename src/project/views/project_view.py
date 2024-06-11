@@ -1,15 +1,10 @@
-from django.shortcuts import render
-from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import Project
-from .serializers import ProjectSerializer
+from project.models import Project
+from project.serializers import ProjectSerializer
 
 
-@api_view(['GET'])
-def function(request):
-    return Response("API BASE POINT")
 
 
 @api_view(['GET'])
