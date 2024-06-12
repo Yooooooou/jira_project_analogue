@@ -1,10 +1,11 @@
 from django.urls import path
-from project.views import status_ref_view as views
+from project.views.status_ref_view import StatusRefList, StatusRefDetail, StatusRefCreate, StatusRefUpdate, \
+    StatusRefDelete
 
 urlpatterns = [
-    path('status-list/', views.projectStatusList, name='status-list'),
-    path('status-detail/<int:pk>/', views.projectStatusDetail, name='status-detail'),
-    path('status-create/', views.projectStatusCreate, name='status-create'),
-    path('status-update/<int:pk>/', views.projectStatusUpdate, name='status-update'),
-    path('status-delete/<int:pk>/', views.projectStatusDelete, name='status-delete'),
+    path('status/', StatusRefList.as_view(), name='status-list'),
+    path('status/<int:pk>/', StatusRefDetail.as_view(), name='status-detail'),
+    path('status/create/', StatusRefCreate.as_view(), name='status-create'),
+    path('status/update/<int:pk>/', StatusRefUpdate.as_view(), name='status-update'),
+    path('status/delete/<int:pk>/', StatusRefDelete.as_view(), name='status-delete'),
 ]

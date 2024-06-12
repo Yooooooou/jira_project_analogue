@@ -1,43 +1,29 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework import generics
 
 from project.models import ProjectStatusRef
 from project.serializers import ProjectStatusRefSerializer
 
 
-@api_view(['GET'])
-def projectStatusList(request):
-    statuses = ProjectStatusRef.objects.all()
-    serializer = ProjectStatusRefSerializer(statuses, many=True)
-    return Response(serializer.data)
+class StatusRefList(generics.ListAPIView):
+    queryset = ProjectStatusRef.objects.all()
+    serializer_class = ProjectStatusRefSerializer
 
 
-@api_view(['GET'])
-def projectStatusDetail(request, pk):
-    status = ProjectStatusRef.objects.get(id=pk)
-    serializer = ProjectStatusRef(status, many=False)
-    return Response(serializer.data)
+class StatusRefCreate(generics.CreateAPIView):
+    queryset = ProjectStatusRef.objects.all()
+    serializer_class = ProjectStatusRefSerializer
 
 
-@api_view(['POST'])
-def projectStatusCreate(request):
-    serializer = ProjectStatusRefSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+class StatusRefUpdate(generics.UpdateAPIView):
+    queryset = ProjectStatusRef.objects.all()
+    serializer_class = ProjectStatusRefSerializer
 
 
-@api_view(['POST'])
-def projectStatusUpdate(request, pk):
-    status = ProjectStatusRef.objects.get(id=pk)
-    serializer = ProjectStatusRefSerializer(instance=status, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+class StatusRefDetail(generics.RetrieveAPIView):
+    queryset = ProjectStatusRef.objects.all()
+    serializer_class = ProjectStatusRefSerializer
 
 
-@api_view(['DELETE'])
-def projectStatusDelete(request, pk):
-    status = ProjectStatusRef.objects.get(id=pk)
-    status.delete()
-    return Response("status successfully deleted!")
+class StatusRefDelete(generics.RetrieveDestroyAPIView):
+    queryset = ProjectStatusRef.objects.all()
+    serializer_class = ProjectStatusRefSerializer

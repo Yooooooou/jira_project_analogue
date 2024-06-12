@@ -1,45 +1,28 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-
+from rest_framework import generics
 from project.models import MemberRoleRef
 from project.serializers import MemberRoleRefSerializer
 
 
+class RoleRefList(generics.ListAPIView):
+    queryset = MemberRoleRef.objects.all()
+    serializer_class = MemberRoleRefSerializer
 
 
-@api_view(['GET'])
-def roleRefList(request):
-    roles = MemberRoleRef.objects.all()
-    serializer = MemberRoleRefSerializer(roles, many=True)
-    return Response(serializer.data)
+class RoleRefDetail(generics.RetrieveAPIView):
+    queryset = MemberRoleRef.objects.all()
+    serializer_class = MemberRoleRefSerializer
 
 
-@api_view(['GET'])
-def roleRefDetail(request, pk):
-    roles = MemberRoleRef.objects.get(id=pk)
-    serializer = MemberRoleRefSerializer(roles, many=False)
-    return Response(serializer.data)
+class RoleRefCreate(generics.CreateAPIView):
+    queryset = MemberRoleRef.objects.all()
+    serializer_class = MemberRoleRefSerializer
 
 
-@api_view(['POST'])
-def roleRefCreate(request):
-    serializer = MemberRoleRefSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
+class RoleRefUpdate(generics.UpdateAPIView):
+    queryset = MemberRoleRef.objects.all()
+    serializer_class = MemberRoleRefSerializer
 
 
-@api_view(['POST'])
-def roleRefUpdate(request, pk):
-    role = MemberRoleRef.objects.get(id=pk)
-    serializer = MemberRoleRefSerializer(instance=role, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    return Response(serializer.data)
-
-
-@api_view(['DELETE'])
-def roleRefDelete(request, pk):
-    role = MemberRoleRef.objects.get(id=pk)
-    role.delete()
-    return Response("project successfully deleted!")
+class RoleRefDelete(generics.RetrieveDestroyAPIView):
+    queryset = MemberRoleRef.objects.all()
+    serializer_class = MemberRoleRefSerializer

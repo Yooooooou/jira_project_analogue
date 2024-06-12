@@ -1,10 +1,10 @@
 from django.urls import path
-from project.views import roles_ref_view as views
+from project.views.roles_ref_view import RoleRefList, RoleRefDetail, RoleRefCreate, RoleRefUpdate, RoleRefDelete
 
 urlpatterns = [
-    path('role-list/', views.roleRefList, name='role-list'),
-    path('role-detail/<int:pk>/', views.roleRefDetail, name='role-detail'),
-    path('role-create/', views.roleRefCreate, name='role-create'),
-    path('role-update/<int:pk>/', views.roleRefUpdate, name='role-update'),
-    path('role-delete/<int:pk>/', views.roleRefDelete, name='role-delete'),
+    path('roles/', RoleRefList.as_view(), name='role-list'),
+    path('roles/<int:pk>/', RoleRefDetail.as_view(), name='role-detail'),
+    path('roles/create/', RoleRefCreate.as_view(), name='role-create'),
+    path('roles/update/<int:pk>/', RoleRefUpdate.as_view(), name='role-update'),
+    path('roles/delete/<int:pk>/', RoleRefDelete.as_view(), name='role-delete'),
 ]
