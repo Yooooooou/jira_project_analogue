@@ -21,4 +21,3 @@ class Task(models.Model):
 class TaskMember(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-
